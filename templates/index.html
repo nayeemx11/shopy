@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+  Home Page
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome</h1>
+
+  {% if user.is_authenticated %}
+    <p>Welcome back, {{ user.username }}! You are already signed in.</p>
+  {% else %}
+    <p>Please sign up to create a new account.</p>
+  {% endif %}
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endblock %}

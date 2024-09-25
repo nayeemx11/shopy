@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+  Add new product Product
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome</h1>
+
+  {% if user.is_authenticated %}
+    <p>{{ user.username }}</p>
+  {% else %}
+    <p>Please sign up to create a new account.</p>
+  {% endif %}
+
+  <h1>Create Product Category, Discount, Product or Inventory</h1>
+
+  <h2>Create Product Category</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ category_form.as_p }}
+    <button type="submit" name="category_submit">Save Category</button>
+  </form>
+
+  <h2>Create Discount</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ discount_form.as_p }}
+    <button type="submit" name="discount_submit">Save Discount</button>
+  </form>
+
+  <h2>Create Product Inventory</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ inventory_form.as_p }}
+    <button type="submit" name="inventory_submit">Save Inventory</button>
+  </form>
+
+  <h2>Create product</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ product_form.as_p }}
+    <button type="submit" name="product_submit">Save Product</button>
+  </form>
+{% endblock %}

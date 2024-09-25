@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+  Order Summary
+{% endblock %}
+
+{% block content %}
+  <h1>Order Summary</h1>
+
+  <h3>Order Items:</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price single</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.cart_items.all %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.product.price }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Total: ${{ order_details.total }}</h3>
+
+  <a href="{% url 'product_home' %}">Back to Home</a>
+{% endblock %}

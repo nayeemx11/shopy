@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+  Your Cart
+{% endblock %}
+
+{% block content %}
+  <h1>Your Cart</h1>
+
+  {% if cart_items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price_signle</th>
+          <th>Price_total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.product.price }}</td>
+            <td>${{ item.price_cart }}</td>
+            <td>
+              <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Total: ${{ total_price }}</h3>
+
+    <a href="{% url 'place_order' %}"><button type="button">Place Order</button></a>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+{% endblock %}

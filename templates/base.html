@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title_section %}Default Title{% endblock title_section %}</title>
+</head>
+<body>
+    <a href="{% url 'signup' %}">Signup</a>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'product_home' %}">View all Product</a>
+    <a href="{% url 'addnewproduct' %}">Add new Product</a>
+    <a href="{% url 'cart_view' %}">Cart View</a>
+    
+    {% block content %}
+    <!-- Default content can go here -->
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+  Product home
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome</h1>
+
+  {% if user.is_authenticated %}
+    <p>{{ user.username }}</p>
+  {% else %}
+    <p>Please sign up to create a new account.</p>
+  {% endif %}
+
+  <h1>Product List</h1>
+  <ul>
+    {% for product in products %}
+      <li>
+        <strong>{{ product.name }}</strong><br />
+        Category: {{ product.category_id.name }}<br />
+        Inventory: {{ product.inventory_id.quantity }}<br />
+        Price: {{ product.price|floatformat:2 }}<br />
+        {% if product.discount_id and product.discount_id.active %}
+          Discount: {{ product.discount_id.discount }}%<br />
+          After discount: {{ product.discounted_price|floatformat:2 }}
+        {% endif %}
+
+
+        {% if product.inventory_id.quantity > 0 %}
+        <form action="{% url 'buy_now' product.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Order</button>
+        </form>
+
+        <hr>
+
+        <form action="{% url 'add_to_cart' product.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Add to Cart</button>
+        </form>
+
+        {% else %}
+          <p>Out of Stock</p>
+        {% endif %}
+
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
