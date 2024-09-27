@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+  Payment History
+{% endblock %}
+
+{% block content %}
+  <h1>Payment History</h1>
+
+  {% if paymenthistory %}
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Status</th>
+          {% comment %} <th>Total Products</th> {% endcomment %}
+          <th>Discount Applied</th>
+          <th>Created At</th>
+          <th>Modified At</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pay in paymenthistory %}
+          <tr>
+            <td>{{ pay.id }}</td>
+            <td>${{ pay.amount }}</td>
+            <td>{{ pay.user }}</td>
+            <td>{{ pay.status }}</td>
+            {% comment %} <td>{{ pay.get_total_products }}</td> {% endcomment %}
+            <td>{{ pay.discount_applied|default:"None" }}</td>
+            <td>{{ pay.created_at|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ pay.modified_at|date:"Y-m-d H:i:s" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No payment history available.</p>
+  {% endif %}
+
+  <!-- Link back to the home page -->
+  <a href="{% url 'product_home' %}">Back to Home</a>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block title_section %}
+    Payment History
+{% endblock %}
+
+{% block content %}
+    <h1>Your Payment History</h1>
+
+    {% if paymenthistory %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Info</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in paymenthistory %}
+                    <tr>
+                        <td>{{ payment.order_details.id }}</td>
+                        <td>
+                            <ul>
+                                {% for item in payment.order_details.order_items.cart_items.all %}
+                                    <li>{{ item.product.name }} - Quantity: {{ item.quantity }} - Price: ${{ item.price_cart }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>${{ payment.amount }}</td>
+                        <td>{{ payment.status }}</td>
+                        <td>{{ payment.created_at|date:"F j, Y, g:i a" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No payment history available.</p>
+    {% endif %}
+
+    <a href="{% url 'product_home' %}">Back to Home</a>
+
+{% endblock %} {% endcomment %}

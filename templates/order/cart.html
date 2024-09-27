@@ -1,6 +1,50 @@
 {% extends 'base.html' %}
 
 {% block title_section %}
+    My Cart
+{% endblock %}
+
+{% block content %}
+    <h1>Your Cart</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price_cart }}</td>
+                    <td>
+                        <form action="{% url 'remove_from_cart' item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Total: ${{ total_price }}</h3>
+
+    <a href="{% url 'place_order' %}">Place Order</a>
+    <a href="{% url 'product_home' %}">Continue Shopping</a>
+{% endblock %}
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block title_section %}
   Your Cart
 {% endblock %}
 
@@ -39,4 +83,4 @@
   {% else %}
     <p>Your cart is empty.</p>
   {% endif %}
-{% endblock %}
+{% endblock %} {% endcomment %}

@@ -1,21 +1,10 @@
 from django import forms
 from .models import CartItems, OrderItems, PaymentDetails
 
-
-
-
-
-
-class CartItemsFrom(forms.ModelForm):
-    class Meta:
-        model = CartItems
-        fields = ["quantity"]
-
-
 class PaymentDetailsForm(forms.ModelForm):
     class Meta:
         model = PaymentDetails
-        fields = ["amount", "status"]
+        fields = ["status"]
 
 
 # 1st order items, what item is ordering, how many, total cost

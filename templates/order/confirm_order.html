@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title_section %}
+    Confirm Order
+{% endblock %}
+
+{% block content %}
+    <h1>Confirm Order</h1>
+
+    <h3>Order Summary</h3>
+    <p><strong>Order ID:</strong> {{ order_details.id }}</p>
+    <p><strong>Total Amount:</strong> ${{ order_details.total }}</p>
+
+    <h3>Payment Details</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ payment_form.as_p }}
+        <button type="submit">Confirm Payment</button>
+    </form>
+
+    <br>
+    <br>
+
+    <!-- Back link to order summary or cart view -->
+    {% comment %} <a href="{% url 'order_summary' order.id %}">Back to Order Summary</a> {% endcomment %}
+{% endblock %}

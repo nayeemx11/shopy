@@ -9,7 +9,7 @@ from .models import CustomUser
 
 def alreadyLoggedIn(request):
     if request.user.is_authenticated:
-        messages.info(request, "You are already logged in.")
+        messages.info(request, f"You are already logged in. {request.user.username}")
         return redirect("index") # change it 
 
 def signup(request):
@@ -33,9 +33,13 @@ def signup(request):
 def login_view(request):
     
     alreadyLoggedIn(request)
-    
+        
     if request.method == "POST":
-        login_form = AuthenticationForm(request, data=request.POST)
+        
+        if request.user.is_authenticated:
+            return redirect("index")
+        
+        login_form = AuthenticationForm(request, data=request.POST)        
         if login_form.is_valid():
             username = login_form.cleaned_data.get('username')
             password = login_form.cleaned_data.get('password')
@@ -43,7 +47,7 @@ def login_view(request):
             if user is not None:
                 auth_login(request, user)  # Log in the user
                 messages.success(request, f"Welcome back, {username}!")
-                return redirect("login")  # Redirect to the post list or any other page
+                return redirect("index")  # Redirect to the post list or any other page
             else:
                 messages.error(request, "Invalid username or password.")
         else:

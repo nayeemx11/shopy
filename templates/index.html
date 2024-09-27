@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Welcome</h1>
+  
 
   {% if user.is_authenticated %}
-    <p>Welcome back, {{ user.username }}! You are already signed in.</p>
+    <h1>Welcome</h1>
   {% else %}
     <p>Please sign up to create a new account.</p>
   {% endif %}
